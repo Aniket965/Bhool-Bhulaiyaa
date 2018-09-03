@@ -2,13 +2,26 @@
 <html>
   <head>
     <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
+    
   </head>
   <body>
     <div class="root">
-      <a-scene>
-        <a-box position="-1 0.5 -3" rotation="0 45 0"  src="assets/wall.jpeg"></a-box>
-        <a-plane src="assets/texturewall.jpg" position="0 0 -4" rotation="-90 0 0" width="4" height="4" ></a-plane>
-        <a-sky src="assets/sample2.jpg"></a-sky>
+        <a-assets>
+
+            <img id="sky" src="https://img.gs/bbdkhfbzkk/2048x2048,stretch/http://i.imgur.com/WqlqEkq.jpg" crossorigin="anonymous" />
+            <img src="https://img.gs/bbdkhfbzkk/stretch/https://i.imgur.com/25P1geh.png" id="grid" crossorigin="anonymous">
+          </a-assets>
+       
+      <a-scene fog="type: exponential; color: #AAA">
+        
+                <a-plane  src="assets/texturewall.jpg" position="0 0 4" rotation="-90 0 0" width="{{value['w']/10}}" height="{{value['h']/10}}" ></a-plane>
+        <a-sky src="http://s3.amazonaws.com/isat-vr-360/images/R0010003.JPG" rotation="0 -90 0"></a-sky>
+        {% for line in value['horlines'] %}
+        <a-box position="{{line[0]/10}} 2.5 {{line[1]/10}}" rotation="0 0 0" height="5" width="{{line[2]/10}}"  src="assets/wall.jpeg"></a-box>
+        {% endfor %}
+        {% for line in value['vertlines'] %}
+        <a-box position="{{line[0]/10}} 2.5 {{line[1]/10}}" rotation="0 90 0" height="5" width="{{line[2]/10}}"  src="assets/wall.jpeg"></a-box>
+        {% endfor %}
       </a-scene>
     </div>
   </body>
